@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>My People</h2>
+<a href="{% url 'form_create' %}">+ Add New</a> |
+<a href="{% url 'logout' %}">Logout</a>
+
+<table border="1">
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Place</th>
+    <th>Photo</th>
+    <th>Actions</th>
+  </tr>
+  {% for person in people %}
+  <tr>
+    <td>{{ person.name }}</td>
+    <td>{{ person.age }}</td>
+    <td>{{ person.place }}</td>
+    <td>
+      {% if person.photo %}
+      <img src="{{ person.photo.url }}" width="80" height="80">
+      {% endif %}
+    </td>
+    <td>
+      <a href="{% url 'form_edit' person.id %}">Edit</a> |
+      <a href="{% url 'form_delete' person.id %}">Delete</a>
+    </td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="5">No records yet.</td></tr>
+  {% endfor %}
+</table>
+
+</body>
+</html>
